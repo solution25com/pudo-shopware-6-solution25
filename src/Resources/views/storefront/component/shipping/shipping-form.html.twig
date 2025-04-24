@@ -1,0 +1,20 @@
+{% sw_extends '@Storefront/storefront/component/shipping/shipping-form.html.twig' %}
+
+{% block page_checkout_change_shipping_form_element %}
+    {{ parent() }}
+
+    <form id="changeShippingForm"
+          name="changeShippingForm"
+          action="{{ actionPath }}"
+          data-form-auto-submit="true"
+          data-form-auto-submit-options="{{ formAjaxSubmitOptions|json_encode }}"
+          method="post">
+        {% block page_checkout_change_shipping_form_redirect %}
+            <input type="hidden" name="redirectTo" value="{{ redirect }}">
+            <input type="hidden" name="redirectParameters" value="{{ redirectParameters }}">
+        {% endblock %}
+    </form>
+{% endblock %}
+
+{% block page_checkout_confirm_shipping_title %}
+{% endblock %}

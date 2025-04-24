@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="https://raw.githubusercontent.com/shopware/shopware/trunk/src/Core/System/SystemConfig/Schema/config.xsd">
+
+    <card>
+        <title>Pudo configuration</title>
+
+        <input-field type="text">
+            <name>signature</name>
+            <label>Signature</label>
+        </input-field>
+
+        <input-field type="text">
+            <name>baseUri</name>
+            <label>Base URI</label>
+        </input-field>
+
+        <input-field type="text">
+            <name>apiEndpoint</name>
+            <label>Api Endpoint</label>
+        </input-field>
+
+        <input-field type="text">
+            <name>partnerCode</name>
+            <label>Partner Code</label>
+        </input-field>
+
+        <input-field type="text">
+            <name>partnerPassword</name>
+            <label>Partner Password</label>
+        </input-field>
+
+        <input-field type="text">
+            <name>maxDealerDistance</name>
+            <label>Maximum Dealer Distance</label>
+        </input-field>
+
+        <component name="sw-entity-multi-id-select">
+            <name>customerGroups</name>
+            <entity>customer_group</entity>
+            <label lang="en-GB">PUDO is not nessecary for b2b</label>
+            <label lang="de-DE">PUDO ist für B2B nicht erforderlich</label>
+            <helpText lang="en-GB">Select the customer group for which you want to deactivate the Pudo feature.</helpText>
+        </component>
+
+    </card>
+
+</config>

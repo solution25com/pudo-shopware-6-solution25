@@ -1,0 +1,27 @@
+{
+    "name": "s25/pudo",
+    "description": "Pudo Point",
+    "type": "shopware-platform-plugin",
+    "version": "1.0.0",
+    "license": "MIT",
+    "require": {
+        "shopware/core": "~6.6.0"
+    },
+    "extra": {
+        "shopware-plugin-class": "Pudo\\Pudo",
+        "label": {
+            "de-DE": "Pudo Point",
+            "en-GB": "Pudo Point"
+        }
+    },
+    "autoload": {
+        "psr-4": {
+            "Pudo\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Pudo\\Tests\\": "tests/"
+        }
+    }
+}

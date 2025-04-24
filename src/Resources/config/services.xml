@@ -1,0 +1,43 @@
+<?xml version="1.0" ?>
+
+<container xmlns="http://symfony.com/schema/dic/services"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <services>
+
+        <service id="Pudo\Subscriber\PudoCheckoutSubscriber">
+            <argument type="service" id="Shopware\Core\System\SystemConfig\SystemConfigService" />
+            <argument type="service" id="order.repository"/>
+            <argument type="service" id="customer.repository"/>
+            <argument type="service" id="order_address.repository"/>
+            <argument type="service" id="Symfony\Component\HttpFoundation\RequestStack" />
+            <argument type="service" id="Pudo\Service\PudoPointClient"/>
+            <tag name="kernel.event_subscriber"/>
+        </service>
+
+        <service id="Pudo\Storefront\Controller\PudoController" autowire="true" public="true">
+            <argument type="service" id="order.repository"/>
+            <call method="setContainer">
+                <argument type="service" id="service_container"/>
+            </call>
+            <call method="setTwig">
+                <argument type="service" id="twig"/>
+            </call>
+            <argument type="service" id="Pudo\Service\PudoPointClient"/>
+            <argument type="service" id="twig"/>
+            <argument type="service" id="service_container"/>
+        </service>
+
+        <service id="Pudo\Service\PudoPointClient">
+            <argument type="service" id="Shopware\Core\System\SystemConfig\SystemConfigService" />
+            <argument type="service" id="Psr\Log\LoggerInterface"/>
+        </service>
+
+        <service id="Pudo\Service\CustomFieldsInstaller">
+            <argument type="service" id="custom_field_set.repository"/>
+            <argument type="service" id="custom_field_set_relation.repository"/>
+        </service>
+
+    </services>
+</container>

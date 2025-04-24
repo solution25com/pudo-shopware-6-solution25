@@ -1,0 +1,39 @@
+{% sw_extends '@Storefront/storefront/component/shipping/shipping-fields.html.twig' %}
+
+{% block component_shipping_method %}
+    {% set selectedCustomerGroups = config('Pudo.config.customerGroups') %}
+    {% set customerGroupId = context.currentCustomerGroup.id %}
+    {% set isInCustomerGroupConfig = (customerGroupId in selectedCustomerGroups) %}
+    {% set pudoForB2B = not isInCustomerGroupConfig %}
+    {% set PudoIsAvailable = false %}
+
+    {% for shipping in page.shippingMethods[:visibleShippingMethodsLimit] %}
+        {% if shipping.technicalName != 'shipping_pudo' || pudoForB2B %}
+            {% sw_include '@Storefront/storefront/component/shipping/shipping-method.html.twig' %}
+            {% set PudoIsAvailable = true %}
+        {% endif %}
+    {% endfor %}
+
+    {% if context.shippingMethod.technicalName == 'shipping_pudo' %}
+        <div class="pudo-point-wrapper">
+            <label for="pudo-point" class="form-label card-title s25-card-title">Select a PUDO Point</label>
+            <select name="pudo-point" id="pudo-point">
+                <option value="-1" selected="selected">None</option>
+            </select>
+        </div>
+
+        <p id="pudo-error" class="d-none">No Pudo Point available</p>
+
+        <input type="hidden" name="pudo-point-id" id="pudo-point-id" value="0">
+
+        <template pudo-plugin
+                  zipcode="{{ context.customer.defaultBillingAddress.zipcode }}"
+                  shippingMethods="{{ page.salesChannelShippingMethods.elements|json_encode }}"
+        >
+        </template>
+    {% endif %}
+
+    {% block component_shipping_method_collapse %}
+        {{ parent() }}
+    {% endblock %}
+{% endblock %}
